@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Job Application Tracker</title>
+    </head>
+
+    <body>
+        
+        <h1>My Job Applications</h1>
+
+        {% for application in applications %}
+
+            <p>
+                {{application.company}}-
+                {{application.position}}-
+                {{application.status}}
+            </p>
+
+        {% endfor %}
+    </body>
+</html>
