@@ -6,7 +6,9 @@
 
     <body>
         
-        <h1>My Job Applications</h1>
+        <h1>My Job Applications </h1>
+
+        <h2>Total applications : {{total_applications}}</h2>
 
         {% for application in applications %}
 
@@ -14,6 +16,9 @@
                 {{application.company}}-
                 {{application.position}}-
                 {{application.status}}
+
+                <a href="{% url 'application_update' application.pk %}">Edit</a>
+                <a href="{% url 'application_delete' application.pk %}">Delete</a>
             </p>
 
         {% endfor %}
