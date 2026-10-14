@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Application
+from .models import Application, JobPosting
 from .forms import ApplicationForm
 
 
@@ -50,4 +50,16 @@ def application_delete(request,pk):
     request,
     "applications/application_confirm_delete.html",
     {"application": application})
-        
+def job_list(request):
+    jobs = JobPosting.objects.all()
+
+    search = request.GET.get("search", "").strip()
+    
+    if search:
+        jobs = jobs.filter(title__icontains=search)
+
+    return render(
+        request,
+        "applications/job_list.html",
+        {"jobs": jobs}
+    )
