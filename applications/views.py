@@ -76,6 +76,7 @@ def application_delete(request,pk):
     request,
     "applications/application_confirm_delete.html",
     {"application": application})
+
 def job_list(request):
     jobs = JobPosting.objects.all()
 
@@ -87,5 +88,5 @@ def job_list(request):
     return render(
         request,
         "applications/job_list.html",
-        {"jobs": jobs}
+        {"jobs": jobs, "search": search}
     )
