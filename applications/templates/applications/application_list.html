@@ -1,14 +1,47 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Job Application Tracker</title>
+        <title>CareerTracker</title>
     </head>
 
     <body>
-        
+        <form method="GET">
+            <input type="text" name="search" value="{{ search }}" placeholder="Search company...">
+
+                <select name="status">
+
+                <option value="" {% if not selected_status %} selected {% endif %}>All statuses</option>
+
+                <option value="applied"
+                {% if selected_status == "applied" %}
+                    selected
+                {% endif %}>Applied</option>
+
+                <option value="interview"{% if selected_status == "interview" %}
+                    selected
+                {% endif %}>Interview</option>
+
+                <option value="accepted"
+                  {% if selected_status == "accepted" %}
+                    selected
+                {% endif %}>Accepted</option>
+
+                <option value="rejected"{% if selected_status == "rejected" %}
+                    selected
+                {% endif %}>Rejected</option>
+
+                </select>
+
+    <button type="submit">Filter</button>
+
+        </form>
         <h1>My Job Applications </h1>
 
         <h2>Total applications : {{total_applications}}</h2>
+        <h2>Applied: {{ applied_count }}</h2>
+        <h2>Interview: {{ interview_count }}</h2>
+        <h2>Accepted: {{ accepted_count }}</h2>
+        <h2>Rejected: {{ rejected_count }}</h2>
 
         {% for application in applications %}
 

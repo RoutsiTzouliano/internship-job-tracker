@@ -8,10 +8,36 @@ def application_list(request):
 
     applications=Application.objects.all()
     total_applications = applications.count()
+    applied_count = Application.objects.filter(status="applied").count()
+    interview_count = Application.objects.filter(status="interview").count()
+    accepted_count = Application.objects.filter(status="accepted").count()
+    rejected_count = Application.objects.filter(status="rejected").count()
+
+    ## φίλτρα, searchbar (λειτουργούν  συνδιαστικα η και ανεξαρτητα μεταξυ τους  )
+    search = request.GET.get("search","").strip()
+    status = request.GET.get("status")
+
+    if search:
+        applications = applications.filter(company__icontains=search)
+
+    if status:
+        applications = applications.filter(status=status)
 
 
     return render(
-        request,"applications/application_list.html", {"applications": applications , "total_applications": total_applications})
+        request,
+        "applications/application_list.html",
+        {
+            "applications": applications , 
+            "total_applications": total_applications,
+            "applied_count":applied_count,
+            "interview_count":interview_count,
+            "accepted_count":accepted_count,
+            "rejected_count":rejected_count,
+            "search": search,
+            "selected_status": status, 
+        }
+        )
 
 
 def application_create(request):
